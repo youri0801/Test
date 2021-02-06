@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 2번은 mapper라는 걸 인식하게 해줌 -->
+
+<mapper namespace="UserInfo">
+<!-- namespace는 dao의 impl에서 쿼리문을 가져올때의 키 값을 지정, 보통 table명으로 지정 -->
+
+	<select id="selectId" resultType="String">
+	<!-- id는 어떤 쿼리문을 가져올 지의 키값 resultType은 반환값으로 사용할 데이터의 타입-->
+		select id from user_info where id = #{id} and password = #{password}
+	<!-- #{}안의 이름은 dto와 같은 객체이름을 써야함! 세미클론 필요 없음 -->
+	</select>
+
+	<select id="roadUserInfo" resultType="UserInfoDto">
+			select * from user_info
+	</select>
+
+	<insert id="insertOne" parameterType="UserInfoDto">
+		insert into user_info (id, password, name, age, address, gender) values (#{id}, #{password}, #{name}, #{age}, #{address}, #{gender})
+	</insert>
+
+	<select id="loadUserInfo" resultType="UserInfoDto">
+			select * from user_info where id = #{id}
+	</select>
+
+	<update id="updateUserInfo" parameterType="UserInfoDto">
+			update user_info set password = #{password}, name = #{name}, age = #{age}, address = #{address}, gender = #{gender} where id = #{id}
+	</update>
+
+</mapper>
